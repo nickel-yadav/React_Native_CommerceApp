@@ -12,7 +12,7 @@ import { Image } from "expo-image";
 
 const CARD_WIDTH = Dimensions.get("window").width * 0.7;
 const CARD_HEIGHT = Dimensions.get("window").height * 0.15;
-const SPACING_FOR_CARD_INSET = Dimensions.get("window").width * 0.1 - 10;
+const SPACING_FOR_CARD_INSET = Dimensions.get("window").width * 0.1 - 24;
 
 const cards = [
   { discount: "50% OFF", condition: "On first 03 order" },
