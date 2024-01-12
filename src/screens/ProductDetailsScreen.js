@@ -1,12 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
+import { StatusBar } from "expo-status-bar";
+import ProductDetailHeader from "../components/ProductDetailHeader";
+import ProductImage from "../components/ProductImage";
+import ProductDetailFooter from "../components/ProductDetailFooter";
 
 export default function ProductDetailsScreen() {
   return (
     <View>
-      <Text>ProductDetailsScreen</Text>
+      <StatusBar style="light" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ProductDetailHeader />
+        <ProductImage />
+        <ProductDetailFooter />
+      </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({});
