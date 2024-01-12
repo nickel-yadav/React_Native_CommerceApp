@@ -1,12 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, SafeAreaView } from "react-native";
 import React from "react";
+import HeaderTop from "../components/HeaderTop";
 
 export default function HomeScreen() {
   return (
-    <View>
-      <Text>HomeScreen</Text>
-    </View>
+    <SafeAreaView>
+      <HeaderTop />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({});
