@@ -17,8 +17,20 @@ export default function TabNavigator() {
           headerShown: false,
         }}
       />
-      <Tab.Screen name="Product Details" component={ProductDetailsScreen} />
-      <Tab.Screen name="Cart" component={CartScreen} />
+      <Tab.Screen
+        name="ProductDetails"
+        component={ProductDetailsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Cart"
+        component={CartScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Tab.Navigator>
   );
 }
