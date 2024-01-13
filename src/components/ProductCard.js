@@ -3,7 +3,7 @@ import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Image } from "expo-image";
 
-export default function ProductCard({ title, price }) {
+export default function ProductCard({ title, price, thumbNail }) {
   return (
     <View style={styles.productCard}>
       <View style={styles.productImageContainer}>
@@ -12,10 +12,7 @@ export default function ProductCard({ title, price }) {
             <AntDesign name="hearto" size={12} color="black" />
           </TouchableOpacity>
         </View>
-        <Image
-          style={{ width: 68, height: 68 }}
-          source={require("../../assets/images/placeHolderImage.png")}
-        />
+        <Image style={{ width: 68, height: 68 }} source={thumbNail} />
       </View>
       <View style={styles.descriptionContainer}>
         <View style={styles.priceContainer}>

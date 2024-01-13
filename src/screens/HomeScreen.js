@@ -10,7 +10,11 @@ export default function HomeScreen() {
     <View>
       <StatusBar style="light" />
       <SafeAreaView>
-        <HeaderTop />
+        <HeaderTop
+          userName={"Rahul"}
+          address={"Green Way 3000, Sylhet"}
+          duration={1}
+        />
         <OffersCarousel />
         <ProductList />
       </SafeAreaView>

@@ -5,12 +5,12 @@ import HeaderTitle from "./HeaderTitle";
 import SearchBar from "./SearchBar";
 import DeliveryDropdown from "./DeliveryDropdown";
 
-export default function HeaderTop() {
+export default function HeaderTop({ userName, address, duration }) {
   return (
     <View style={styles.headerTop}>
-      <HeaderTitle />
+      <HeaderTitle userName={userName} />
       <SearchBar />
-      <DeliveryDropdown />
+      <DeliveryDropdown address={address} duration={duration} />
     </View>
   );
 }

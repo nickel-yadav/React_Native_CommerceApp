@@ -1,12 +1,18 @@
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import ProductCard from "./ProductCard";
-import { productData } from "../../data/products";
+import { useSelector } from "react-redux";
 
 export default function ProductList() {
+  const productData = useSelector((state) => state.product.productData);
+
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <ProductCard title={item.title} price={item.price} />
+      <ProductCard
+        title={item.title}
+        price={item.price}
+        thumbNail={item.thumbnail}
+      />
     </View>
   );
 
@@ -14,7 +20,7 @@ export default function ProductList() {
     <View style={styles.container}>
       <Text style={styles.headingText}>Recommended</Text>
       <FlatList
-        data={productData.products}
+        data={productData}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         numColumns={2}
