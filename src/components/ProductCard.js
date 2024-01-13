@@ -2,29 +2,54 @@ import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { useDispatch } from "react-redux";
+import { toggleFavourite } from "../features/products/productSlice";
+import { addToCart } from "../features/cart/cartSlice";
+import { useNavigation } from "@react-navigation/core";
 
-export default function ProductCard({ title, price }) {
+export default function ProductCard({ itemData, index }) {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const handleToggleFavourite = () => {
+    dispatch(toggleFavourite(index));
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(itemData));
+  };
+
+  const handleRedirectToProductDetails = () => {
+    navigation.navigate("ProductDetails", { productIndex: index });
+  };
+
   return (
     <View style={styles.productCard}>
       <View style={styles.productImageContainer}>
         <View style={styles.favouriteBtn}>
-          <TouchableOpacity>
-            <AntDesign name="hearto" size={12} color="black" />
+          <TouchableOpacity onPress={handleToggleFavourite}>
+            {itemData.isFavourited ? (
+              <AntDesign name="heart" size={12} color="#FF8181" />
+            ) : (
+              <AntDesign name="hearto" size={12} color="black" />
+            )}
           </TouchableOpacity>
         </View>
-        <Image
-          style={{ width: 68, height: 68 }}
-          source={require("../../assets/images/placeHolderImage.png")}
-        />
+        <TouchableOpacity onPress={handleRedirectToProductDetails}>
+          <Image
+            style={{ width: 68, height: 68 }}
+            source={itemData.thumbnail}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.descriptionContainer}>
         <View style={styles.priceContainer}>
-          <Text>$ {price}</Text>
-          <TouchableOpacity>
+          <Text>$ {itemData.price}</Text>
+          <TouchableOpacity onPress={handleAddToCart}>
             <AntDesign name="pluscircle" size={24} color="black" />
           </TouchableOpacity>
         </View>
-        <Text>{title}</Text>
+        <Text>{itemData.title}</Text>
       </View>
     </View>
   );

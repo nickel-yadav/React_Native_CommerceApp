@@ -1,26 +1,31 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
-import { Fontisto } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
 
-export default function ProductDetailHeader() {
-  // TODO: Refactor to show half stars with correct color scheme
+export default function ProductDetailHeader({ heading, subHeading, rating }) {
+  const navigation = useNavigation();
+
+  const handleBackNav = () => {
+    navigation.goBack();
+  };
+
   const renderStars = (rating) => {
     const stars = [];
-    const wholeStars = Math.floor(rating);
-    const decimalPart = rating - wholeStars;
 
-    for (let i = 0; i < wholeStars; i++) {
-      stars.push(<Fontisto key={i} name="star" size={12} color="black" />);
-    }
+    for (let i = 0; i < 5; i++) {
+      const starType =
+        i < Math.floor(rating)
+          ? "star"
+          : i < rating
+          ? "star-half-empty"
+          : "star";
 
-    if (decimalPart > 0) {
-      stars.push(<Fontisto key="decimal" name="star" size={12} color="red" />);
-    }
-
-    for (let i = wholeStars + 1; i < 5; i++) {
-      stars.push(<Fontisto key={i} name="star" size={12} color="black" />);
+      stars.push(
+        <FontAwesome key={i} name={starType} size={12} color="#F9B023" />
+      );
     }
 
     return stars;
@@ -29,7 +34,7 @@ export default function ProductDetailHeader() {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.navAndCartContainer}>
-        <TouchableOpacity style={styles.backNavBtn}>
+        <TouchableOpacity style={styles.backNavBtn} onPress={handleBackNav}>
           <Entypo name="chevron-small-left" size={24} color="black" />
         </TouchableOpacity>
         <TouchableOpacity>
@@ -37,11 +42,11 @@ export default function ProductDetailHeader() {
         </TouchableOpacity>
       </View>
       <View style={styles.descriptionContainer}>
-        <Text style={styles.headingText}>Thin Choise</Text>
-        <Text style={styles.subheadingText}>Top Orange</Text>
+        <Text style={styles.headingText}>{heading}</Text>
+        <Text style={styles.subheadingText}>{subHeading}</Text>
       </View>
       <View style={styles.ratingsContainer}>
-        <View style={styles.ratingIconsContainer}>{renderStars(3)}</View>
+        <View style={styles.ratingIconsContainer}>{renderStars(rating)}</View>
         <Text style={styles.ratingText}>110 Reviews</Text>
       </View>
     </View>

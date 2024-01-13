@@ -2,20 +2,20 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 
-export default function DeliveryDropdown() {
+export default function DeliveryDropdown({ address, duration }) {
   return (
     <View style={styles.deliveryContainer}>
       <View>
         <Text style={styles.deliveryHeading}>DELIVERY TO</Text>
         <View style={styles.dropDownContainer}>
-          <Text style={styles.deliveryContent}>Green Way 3000, Sylhet</Text>
+          <Text style={styles.deliveryContent}>{address}</Text>
           <Entypo name="chevron-small-down" size={18} color="white" />
         </View>
       </View>
       <View>
         <Text style={styles.deliveryHeading}>WITHIN</Text>
         <View style={styles.dropDownContainer}>
-          <Text style={styles.deliveryContent}>1 Hour</Text>
+          <Text style={styles.deliveryContent}>{duration} Hour</Text>
           <Entypo name="chevron-small-down" size={18} color="white" />
         </View>
       </View>

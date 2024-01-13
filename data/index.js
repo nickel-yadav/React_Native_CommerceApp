@@ -1,4 +1,4 @@
-export const productData = {
+export const defaultProductData = {
   products: [
     {
       id: 1,

@@ -1,38 +1,63 @@
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
+import { addToCart } from "../features/cart/cartSlice";
 
-export default function ProductDetailFooter() {
+export default function ProductDetailFooter({
+  price,
+  discountPercentage,
+  description,
+  itemData,
+}) {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  function calculateDiscount(originalPrice, discountPercentage) {
+    if (
+      originalPrice < 0 ||
+      discountPercentage < 0 ||
+      discountPercentage > 100
+    ) {
+      console.error("Invalid input values");
+      return null;
+    }
+
+    const discountAmount = (originalPrice * discountPercentage) / 100;
+    const discountDifference = originalPrice - (originalPrice - discountAmount);
+
+    return discountDifference.toFixed(2);
+  }
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(itemData));
+  };
+
+  const handlePurchase = () => {
+    navigation.navigate("Cart");
+  };
+
   return (
     <View style={styles.detailsContainer}>
       <View style={styles.priceContainer}>
-        <Text style={{ marginRight: 10, color: "#2A4BA0" }}>
-          <Text style={styles.priceText}>$34.70</Text>
-          /KG
-        </Text>
+        <Text style={styles.priceText}>${price}</Text>
         <TouchableOpacity style={styles.discountBadge}>
-          <Text style={styles.discountedPriceText}>$22.34 OFF</Text>
+          <Text style={styles.discountedPriceText}>
+            ${calculateDiscount(price, discountPercentage)} OFF
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.purchaseBtnContainer}>
-        <TouchableOpacity style={styles.addToCartBtn}>
+        <TouchableOpacity style={styles.addToCartBtn} onPress={handleAddToCart}>
           <Text style={styles.addToCartText}>Add To Cart</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buyNowBtn}>
+        <TouchableOpacity style={styles.buyNowBtn} onPress={handlePurchase}>
           <Text style={styles.buyNowText}>Buy Now</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.productDetailsContainer}>
         <Text style={styles.productHeadingText}>Details</Text>
-        <Text style={styles.productDescriptionText}>
-          Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-          consectetur, adipisci velit...
-        </Text>
+        <Text style={styles.productDescriptionText}>{description}</Text>
       </View>
     </View>
   );
@@ -49,6 +74,8 @@ const styles = StyleSheet.create({
   priceText: {
     fontSize: 16,
     fontFamily: "manrope-400",
+    marginRight: 10,
+    color: "#2A4BA0",
   },
   discountBadge: {
     paddingHorizontal: 10,
