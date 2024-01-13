@@ -6,9 +6,6 @@ const productSlice = createSlice({
     productData: [],
   },
   reducers: {
-    addToFavourites: (state) => {
-      state.value += 1;
-    },
     setProductData: (state, action) => {
       state.productData = action.payload.map((product) => ({
         ...product,
@@ -28,6 +25,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { addToFavourites, setProductData, toggleFavourite } =
-  productSlice.actions;
+export const { setProductData, toggleFavourite } = productSlice.actions;
 export default productSlice.reducer;
