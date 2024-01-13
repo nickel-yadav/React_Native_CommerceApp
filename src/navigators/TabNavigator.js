@@ -18,7 +18,7 @@ export default function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Product Details"
+        name="ProductDetails"
         component={ProductDetailsScreen}
         options={{
           headerShown: false,

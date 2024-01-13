@@ -5,9 +5,11 @@ import { Image } from "expo-image";
 import { useDispatch } from "react-redux";
 import { toggleFavourite } from "../features/products/productSlice";
 import { addToCart } from "../features/cart/cartSlice";
+import { useNavigation } from "@react-navigation/core";
 
 export default function ProductCard({ itemData, index }) {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleToggleFavourite = () => {
     dispatch(toggleFavourite(index));
@@ -15,6 +17,10 @@ export default function ProductCard({ itemData, index }) {
 
   const handleAddToCart = () => {
     dispatch(addToCart(itemData));
+  };
+
+  const handleRedirectToProductDetails = () => {
+    navigation.navigate("ProductDetails", { productIndex: index });
   };
 
   return (
@@ -29,7 +35,12 @@ export default function ProductCard({ itemData, index }) {
             )}
           </TouchableOpacity>
         </View>
-        <Image style={{ width: 68, height: 68 }} source={itemData.thumbnail} />
+        <TouchableOpacity onPress={handleRedirectToProductDetails}>
+          <Image
+            style={{ width: 68, height: 68 }}
+            source={itemData.thumbnail}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.descriptionContainer}>
         <View style={styles.priceContainer}>
