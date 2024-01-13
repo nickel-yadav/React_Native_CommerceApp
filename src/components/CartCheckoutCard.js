@@ -1,12 +1,27 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function CartCheckoutCard() {
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const [subTotal, setSubTotal] = useState(0);
+
+  useEffect(() => {
+    const getSubtotalPrice = () => {
+      setSubTotal(
+        cartItems.reduce((totalPrice, item) => {
+          return totalPrice + (item.price || 0) * (item.itemQuantity || 1);
+        }, 0)
+      );
+    };
+    getSubtotalPrice();
+  }, [cartItems]);
+
   return (
     <View style={styles.checkoutContainer}>
       <View style={styles.checkoutContentContainer}>
         <Text style={styles.checkoutHeading}>Subtotal</Text>
-        <Text style={styles.checkoutPriceText}>$ 49.59</Text>
+        <Text style={styles.checkoutPriceText}>$ {subTotal}</Text>
       </View>
       <View style={styles.checkoutContentContainer}>
         <Text style={styles.checkoutHeading}>Delivery</Text>
@@ -14,7 +29,7 @@ export default function CartCheckoutCard() {
       </View>
       <View style={styles.checkoutContentContainer}>
         <Text style={styles.checkoutHeading}>Total</Text>
-        <Text style={styles.checkoutPriceText}>$ 49.59</Text>
+        <Text style={styles.checkoutPriceText}>$ {subTotal + 49.59}</Text>
       </View>
       <TouchableOpacity style={styles.checkoutBtn}>
         <Text style={styles.checkoutBtnText}>Proceed To Checkout</Text>

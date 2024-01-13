@@ -2,13 +2,13 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 
-export default function CartHeaderTop() {
+export default function CartHeaderTop({ totalItemCount }) {
   return (
     <View style={styles.navAndCartContainer}>
       <TouchableOpacity style={styles.backNavBtn}>
         <Entypo name="chevron-small-left" size={24} color="black" />
       </TouchableOpacity>
-      <Text style={styles.headingText}>Shopping Cart (5)</Text>
+      <Text style={styles.headingText}>Shopping Cart ({totalItemCount})</Text>
     </View>
   );
 }
@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   navAndCartContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 10,
   },
   backNavBtn: {
     padding: 8,
