@@ -1,31 +1,55 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import { Image } from "expo-image";
 import { AntDesign } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { increaseQuantity, decreaseQuantity } from "../features/cart/cartSlice";
 
-export default function CartItemList() {
-  return (
+export default function CartItemList({ cartItems }) {
+  const dispatch = useDispatch();
+
+  const renderItem = ({ item, index }) => (
     <View style={styles.itemsContainer}>
       <View style={styles.itemInfoContainer}>
         <Image
-          style={{ width: 30, height: 30, marginRight: 14 }}
-          source={require("../../assets/images/placeHolderImage.png")}
+          style={{ width: 30, height: 30, marginRight: 14, borderRadius: 6 }}
+          source={item.thumbnail}
         />
         <View>
-          <Text style={styles.itemHeadingText}>Banadaf</Text>
-          <Text style={styles.itemPriceText}>$ 7.50</Text>
+          <Text style={styles.itemHeadingText}>{item.title}</Text>
+          <Text style={styles.itemPriceText}>$ {item.price}</Text>
         </View>
       </View>
       <View style={styles.itemQuantContainer}>
-        <TouchableOpacity style={styles.itemQuantActionBtn}>
+        <TouchableOpacity
+          style={styles.itemQuantActionBtn}
+          onPress={() => dispatch(decreaseQuantity(index))}
+        >
           <AntDesign name="minus" size={16} color="black" />
         </TouchableOpacity>
-        <Text style={styles.itemQuantText}>1</Text>
-        <TouchableOpacity style={styles.itemQuantActionBtn}>
+        <Text style={styles.itemQuantText}>{item.itemQuantity}</Text>
+        <TouchableOpacity
+          style={styles.itemQuantActionBtn}
+          onPress={() => dispatch(increaseQuantity(index))}
+        >
           <AntDesign name="plus" size={16} color="black" />
         </TouchableOpacity>
       </View>
     </View>
+  );
+
+  return (
+    <FlatList
+      data={cartItems}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id.toString()}
+    />
   );
 }
 
