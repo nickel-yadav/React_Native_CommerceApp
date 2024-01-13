@@ -10,7 +10,7 @@ export default function CartCheckoutCard() {
     const getSubtotalPrice = () => {
       setSubTotal(
         cartItems.reduce((totalPrice, item) => {
-          return totalPrice + (item.price || 0) * (item.itemQuantity || 1);
+          return totalPrice + (item.price || 0) * (item.itemQuantity || 0);
         }, 0)
       );
     };
@@ -25,11 +25,15 @@ export default function CartCheckoutCard() {
       </View>
       <View style={styles.checkoutContentContainer}>
         <Text style={styles.checkoutHeading}>Delivery</Text>
-        <Text style={styles.checkoutPriceText}>$ 49.59</Text>
+        <Text style={styles.checkoutPriceText}>
+          $ {subTotal > 0 ? 49.59 : 0}
+        </Text>
       </View>
       <View style={styles.checkoutContentContainer}>
         <Text style={styles.checkoutHeading}>Total</Text>
-        <Text style={styles.checkoutPriceText}>$ {subTotal + 49.59}</Text>
+        <Text style={styles.checkoutPriceText}>
+          $ {subTotal > 0 ? subTotal + 49.59 : 0}
+        </Text>
       </View>
       <TouchableOpacity style={styles.checkoutBtn}>
         <Text style={styles.checkoutBtnText}>Proceed To Checkout</Text>

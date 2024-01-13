@@ -24,8 +24,11 @@ const cartSlice = createSlice({
     },
     decreaseQuantity: (state, action) => {
       const index = action.payload;
-      if (state.cartItems[index].itemQuantity > 1) {
+      if (state.cartItems[index].itemQuantity > 0) {
         state.cartItems[index].itemQuantity -= 1;
+      }
+      if (state.cartItems[index].itemQuantity === 0) {
+        state.cartItems.splice(index, 1);
       }
     },
   },
