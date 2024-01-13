@@ -1,12 +1,31 @@
+import { useState } from "react";
 import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import TabNavigator from "./src/navigators/TabNavigator";
+import AppLoading from "expo-app-loading";
+import useFonts from "./src/hooks/useFonts";
+import { Provider } from "react-redux";
+import { store } from "./src/store/store.js";
+import AppWrapper from "./src/components/AppWrapper.js";
 
 export default function App() {
+  const [IsReady, SetIsReady] = useState(false);
+
+  const LoadFonts = async () => {
+    await useFonts();
+  };
+
+  if (!IsReady) {
+    return (
+      <AppLoading
+        startAsync={LoadFonts}
+        onFinish={() => SetIsReady(true)}
+        onError={() => {}}
+      />
+    );
+  }
   return (
-    <NavigationContainer>
-      <TabNavigator />
-    </NavigationContainer>
+    <Provider store={store}>
+      <AppWrapper />
+    </Provider>
   );
 }
 
