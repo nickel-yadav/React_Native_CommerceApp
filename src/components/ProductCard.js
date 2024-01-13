@@ -4,18 +4,17 @@ import { AntDesign } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useDispatch } from "react-redux";
 import { toggleFavourite } from "../features/products/productSlice";
+import { addToCart } from "../features/cart/cartSlice";
 
-export default function ProductCard({
-  title,
-  price,
-  thumbNail,
-  index,
-  isFavourited,
-}) {
+export default function ProductCard({ itemData, index }) {
   const dispatch = useDispatch();
 
   const handleToggleFavourite = () => {
     dispatch(toggleFavourite(index));
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(itemData));
   };
 
   return (
@@ -23,23 +22,23 @@ export default function ProductCard({
       <View style={styles.productImageContainer}>
         <View style={styles.favouriteBtn}>
           <TouchableOpacity onPress={handleToggleFavourite}>
-            {isFavourited ? (
+            {itemData.isFavourited ? (
               <AntDesign name="heart" size={12} color="#FF8181" />
             ) : (
               <AntDesign name="hearto" size={12} color="black" />
             )}
           </TouchableOpacity>
         </View>
-        <Image style={{ width: 68, height: 68 }} source={thumbNail} />
+        <Image style={{ width: 68, height: 68 }} source={itemData.thumbnail} />
       </View>
       <View style={styles.descriptionContainer}>
         <View style={styles.priceContainer}>
-          <Text>$ {price}</Text>
-          <TouchableOpacity>
+          <Text>$ {itemData.price}</Text>
+          <TouchableOpacity onPress={handleAddToCart}>
             <AntDesign name="pluscircle" size={24} color="black" />
           </TouchableOpacity>
         </View>
-        <Text>{title}</Text>
+        <Text>{itemData.title}</Text>
       </View>
     </View>
   );

@@ -8,13 +8,7 @@ export default function ProductList() {
 
   const renderItem = ({ item, index }) => (
     <View style={styles.itemContainer}>
-      <ProductCard
-        title={item.title}
-        price={item.price}
-        thumbNail={item.thumbnail}
-        isFavourited={item.isFavourited}
-        index={index}
-      />
+      <ProductCard itemData={item} index={index} />
     </View>
   );
 
