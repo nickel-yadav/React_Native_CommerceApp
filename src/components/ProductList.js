@@ -6,12 +6,14 @@ import { useSelector } from "react-redux";
 export default function ProductList() {
   const productData = useSelector((state) => state.product.productData);
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item, index }) => (
     <View style={styles.itemContainer}>
       <ProductCard
         title={item.title}
         price={item.price}
         thumbNail={item.thumbnail}
+        isFavourited={item.isFavourited}
+        index={index}
       />
     </View>
   );

@@ -2,14 +2,32 @@ import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { useDispatch } from "react-redux";
+import { toggleFavourite } from "../features/products/productSlice";
 
-export default function ProductCard({ title, price, thumbNail }) {
+export default function ProductCard({
+  title,
+  price,
+  thumbNail,
+  index,
+  isFavourited,
+}) {
+  const dispatch = useDispatch();
+
+  const handleToggleFavourite = () => {
+    dispatch(toggleFavourite(index));
+  };
+
   return (
     <View style={styles.productCard}>
       <View style={styles.productImageContainer}>
         <View style={styles.favouriteBtn}>
-          <TouchableOpacity>
-            <AntDesign name="hearto" size={12} color="black" />
+          <TouchableOpacity onPress={handleToggleFavourite}>
+            {isFavourited ? (
+              <AntDesign name="heart" size={12} color="#FF8181" />
+            ) : (
+              <AntDesign name="hearto" size={12} color="black" />
+            )}
           </TouchableOpacity>
         </View>
         <Image style={{ width: 68, height: 68 }} source={thumbNail} />
