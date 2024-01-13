@@ -1,11 +1,17 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CartHeaderTop({ totalItemCount }) {
+  const navigation = useNavigation();
+
+  const handleBackNav = () => {
+    navigation.navigate("Home");
+  };
   return (
     <View style={styles.navAndCartContainer}>
-      <TouchableOpacity style={styles.backNavBtn}>
+      <TouchableOpacity style={styles.backNavBtn} onPress={handleBackNav}>
         <Entypo name="chevron-small-left" size={24} color="black" />
       </TouchableOpacity>
       <Text style={styles.headingText}>Shopping Cart ({totalItemCount})</Text>

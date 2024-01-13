@@ -22,7 +22,15 @@ export default function CartItemList({ cartItems }) {
           source={item.thumbnail}
         />
         <View>
-          <Text style={styles.itemHeadingText}>{item.title}</Text>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={styles.itemHeadingText}
+          >
+            {item.title.length > 20
+              ? `${item.title.substring(0, 20)}...`
+              : item.title}
+          </Text>
           <Text style={styles.itemPriceText}>$ {item.price}</Text>
         </View>
       </View>
