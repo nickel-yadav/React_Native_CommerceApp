@@ -1,8 +1,11 @@
 import { View, Text, TouchableOpacity } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 export default function BottomTabBar({ state, descriptors, navigation }) {
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View
+      style={{ flexDirection: "row", padding: 10, backgroundColor: "white" }}
+    >
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -26,24 +29,24 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
           }
         };
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: "tabLongPress",
-            target: route.key,
-          });
-        };
-
         return (
           <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityState={isFocused ? { selected: true } : {}}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarTestID}
+            key={index}
             onPress={onPress}
-            onLongPress={onLongPress}
-            style={{ flex: 1 }}
+            style={{ flex: 1, alignItems: "center" }}
           >
-            <Text style={{ color: isFocused ? "#673ab7" : "#222" }}>
+            <Feather
+              name="home"
+              size={16}
+              color={isFocused ? "#2A4BA0" : "#8891A5"}
+            />
+            <Text
+              style={{
+                color: isFocused ? "#2A4BA0" : "#8891A5",
+                fontSize: 12,
+                fontFamily: "manrope-500",
+              }}
+            >
               {label}
             </Text>
           </TouchableOpacity>

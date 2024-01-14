@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setProductData } from "../features/products/productSlice.js";
-import TabNavigator from "../navigators/TabNavigator.js";
 import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { defaultProductData } from "../../data/index.js";
+import StackNavigator from "../navigators/StackNavigator.js";
 
 export default function AppWrapper() {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export default function AppWrapper() {
 
   return (
     <NavigationContainer>
-      <TabNavigator />
+      <StackNavigator />
     </NavigationContainer>
   );
 }

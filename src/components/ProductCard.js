@@ -1,7 +1,13 @@
-import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+  ImageBackground,
+} from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { Image } from "expo-image";
+
 import { useDispatch } from "react-redux";
 import { toggleFavourite } from "../features/products/productSlice";
 import { addToCart } from "../features/cart/cartSlice";
@@ -25,23 +31,29 @@ export default function ProductCard({ itemData, index }) {
 
   return (
     <View style={styles.productCard}>
-      <View style={styles.productImageContainer}>
-        <View style={styles.favouriteBtn}>
-          <TouchableOpacity onPress={handleToggleFavourite}>
-            {itemData.isFavourited ? (
-              <AntDesign name="heart" size={12} color="#FF8181" />
-            ) : (
-              <AntDesign name="hearto" size={12} color="black" />
-            )}
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity onPress={handleRedirectToProductDetails}>
-          <Image
-            style={{ width: 68, height: 68 }}
-            source={itemData.thumbnail}
-          />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={styles.productImageContainer}
+        onPress={handleRedirectToProductDetails}
+      >
+        <ImageBackground
+          source={{ uri: itemData.thumbnail }}
+          resizeMode="contain"
+          style={styles.image}
+        >
+          <View style={styles.favouritBtnContainer}>
+            <TouchableOpacity
+              style={styles.favouriteBtn}
+              onPress={handleToggleFavourite}
+            >
+              {itemData.isFavourited ? (
+                <AntDesign name="heart" size={24} color="#FF8181" />
+              ) : (
+                <AntDesign name="hearto" size={24} color="black" />
+              )}
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </TouchableOpacity>
       <View style={styles.descriptionContainer}>
         <View style={styles.priceContainer}>
           <Text>$ {itemData.price}</Text>
@@ -67,6 +79,12 @@ const styles = StyleSheet.create({
   productImageContainer: {
     alignItems: "center",
     width: "100%",
+    height: 100,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    flex: 1,
   },
   favouriteBtn: {
     flexDirection: "row",

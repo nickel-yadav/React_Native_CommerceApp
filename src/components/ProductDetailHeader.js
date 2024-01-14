@@ -4,9 +4,21 @@ import { Entypo } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
+import { useSelector } from "react-redux";
 
 export default function ProductDetailHeader({ heading, subHeading, rating }) {
   const navigation = useNavigation();
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const handleNavToCart = () => {
+    navigation.navigate("Cart");
+  };
+
+  const getTotalQuantity = () => {
+    return cartItems.reduce((totalQuantity, item) => {
+      return totalQuantity + (item.itemQuantity || 0);
+    }, 0);
+  };
 
   const handleBackNav = () => {
     navigation.goBack();
@@ -37,8 +49,11 @@ export default function ProductDetailHeader({ heading, subHeading, rating }) {
         <TouchableOpacity style={styles.backNavBtn} onPress={handleBackNav}>
           <Entypo name="chevron-small-left" size={24} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <SimpleLineIcons name="handbag" size={20} color="black" />
+        <TouchableOpacity onPress={handleNavToCart}>
+          <SimpleLineIcons name="handbag" size={16} color="black" />
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>{getTotalQuantity()}</Text>
+          </View>
         </TouchableOpacity>
       </View>
       <View style={styles.descriptionContainer}>
@@ -68,6 +83,18 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 999,
     backgroundColor: "#F8F9FB",
+  },
+  badge: {
+    position: "absolute",
+    bottom: 12,
+    left: 8,
+    backgroundColor: "#FFC83A",
+    paddingHorizontal: 4,
+    borderRadius: 100,
+  },
+  badgeText: {
+    fontSize: 12,
+    fontFamily: "manrope-800",
   },
   descriptionContainer: {
     marginTop: 40,
