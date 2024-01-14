@@ -1,7 +1,5 @@
 import React from "react";
 import HomeScreen from "../screens/HomeScreen";
-import CartScreen from "../screens/CartScreen";
-import ProductDetailsScreen from "../screens/ProductDetailsScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import BottomTabBar from "../components/BottomTabBar";
 
@@ -13,20 +11,6 @@ export default function TabNavigator() {
       <Tab.Screen
         name="Home"
         component={HomeScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="ProductDetails"
-        component={ProductDetailsScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="Cart"
-        component={CartScreen}
         options={{
           headerShown: false,
         }}

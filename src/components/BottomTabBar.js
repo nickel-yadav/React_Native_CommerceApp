@@ -26,23 +26,8 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
           }
         };
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: "tabLongPress",
-            target: route.key,
-          });
-        };
-
         return (
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityState={isFocused ? { selected: true } : {}}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarTestID}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            style={{ flex: 1 }}
-          >
+          <TouchableOpacity key={index} onPress={onPress} style={{ flex: 1 }}>
             <Text style={{ color: isFocused ? "#673ab7" : "#222" }}>
               {label}
             </Text>
